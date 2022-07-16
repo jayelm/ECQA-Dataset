@@ -94,6 +94,7 @@ a_op4 = []
 a_op5 = []
 q_ans = []
 q_ans = []
+q_ans_index = []
 taskB = []
 
 for id in data.keys():
@@ -119,6 +120,7 @@ for id in data.keys():
         positive_explanation = "\n\n\n".join(data[id]["positives"])
         negative_explanations = data[id]["negatives"][:]
         answer_index = choices.index(data[id]["answer"])
+        q_ans_index.append(answer_index)
         ordered_explanations = []
         for i in range(5):
             if i == answer_index:
@@ -162,6 +164,7 @@ tmp_data = {
     "a_op4": a_op4,
     "a_op5": a_op5,
     "q_ans": q_ans,
+    "q_ans_index": q_ans_index,
     "taskB": taskB,
 }
 df = pd.DataFrame(
@@ -181,6 +184,7 @@ df = pd.DataFrame(
         "a_op4",
         "a_op5",
         "q_ans",
+        "q_ans_index",
         "taskB",
     ],
 )
@@ -220,6 +224,7 @@ for split_idx in range(3):
     a_op5 = []
     q_ans = []
     q_ans = []
+    q_ans_index = []
     taskB = []
 
     for id in ids:
@@ -245,6 +250,7 @@ for split_idx in range(3):
             positive_explanation = "\n\n\n".join(data[id]["positives"])
             negative_explanations = data[id]["negatives"][:]
             answer_index = choices.index(data[id]["answer"])
+            q_ans_index.append(answer_index)
             ordered_explanations = []
             for i in range(5):
                 if i == answer_index:
@@ -287,6 +293,7 @@ for split_idx in range(3):
         "a_op4": a_op4,
         "a_op5": a_op5,
         "q_ans": q_ans,
+        "q_ans_index": q_ans_index,
         "taskB": taskB,
     }
     df = pd.DataFrame(
@@ -306,6 +313,7 @@ for split_idx in range(3):
             "a_op4",
             "a_op5",
             "q_ans",
+            "q_ans_index",
             "taskB",
         ],
     )
