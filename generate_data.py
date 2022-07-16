@@ -93,7 +93,7 @@ for id in data.keys():
 		q_op4.append(data[id]['choices'][3])
 		q_op5.append(data[id]['choices'][4])
 		taskA_pos.append('\n'.join(data[id]['positives']))
-		taskA_neg.append('\n'.join(data[id]['negatives']))
+		taskA_neg.append('\n\n\n'.join(data[id]['negatives']))
 		taskB.append(data[id]['freeflow'])
 
 
@@ -158,7 +158,7 @@ for split_idx in range(3):
 			q_op4.append(data[id]['choices'][3])
 			q_op5.append(data[id]['choices'][4])
 			taskA_pos.append('\n'.join(data[id]['positives']))
-			taskA_neg.append('\n'.join(data[id]['negatives']))
+			taskA_neg.append('\n\n\n'.join(data[id]['negatives']))
 			taskB.append(data[id]['freeflow'])
 
 
