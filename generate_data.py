@@ -87,10 +87,14 @@ q_op2 = []
 q_op3 = []
 q_op4 = []
 q_op5 = []
+a_op1 = []
+a_op2 = []
+a_op3 = []
+a_op4 = []
+a_op5 = []
 q_ans = []
 q_ans = []
 taskA_pos = []
-taskA_neg = []
 taskB = []
 
 for id in data.keys():
@@ -110,7 +114,21 @@ for id in data.keys():
         q_op4.append(data[id]["choices"][3])
         q_op5.append(data[id]["choices"][4])
         taskA_pos.append("\n".join(data[id]["positives"]))
-        taskA_neg.append("\n\n\n".join(data[id]["negatives"]))
+
+        choices = data[id]["choices"][:]
+        answer_index = choices.index(data[id]["answer"])
+        ordered_explanations = []
+        for i in range(5):
+            if i == answer_index:
+                ordered_explanations.append(i)
+            else:
+                ordered_explanations.append(choices.pop(0))
+        a_op1.append(ordered_explanations[0])
+        a_op2.append(ordered_explanations[1])
+        a_op3.append(ordered_explanations[2])
+        a_op4.append(ordered_explanations[3])
+        a_op5.append(ordered_explanations[4])
+
         taskB.append(data[id]["freeflow"])
 
 
@@ -126,7 +144,6 @@ print(
     len(q_op5),
     len(q_ans),
     len(taskA_pos),
-    len(taskA_neg),
     len(taskB),
 )
 tmp_data = {
@@ -138,9 +155,13 @@ tmp_data = {
     "q_op3": q_op3,
     "q_op4": q_op4,
     "q_op5": q_op5,
+    "a_op1": a_op1,
+    "a_op2": a_op2,
+    "a_op3": a_op3,
+    "a_op4": a_op4,
+    "a_op5": a_op5,
     "q_ans": q_ans,
     "taskA_pos": taskA_pos,
-    "taskA_neg": taskA_neg,
     "taskB": taskB,
 }
 df = pd.DataFrame(
@@ -154,9 +175,13 @@ df = pd.DataFrame(
         "q_op3",
         "q_op4",
         "q_op5",
+        "a_op1",
+        "a_op2",
+        "a_op3",
+        "a_op4",
+        "a_op5",
         "q_ans",
         "taskA_pos",
-        "taskA_neg",
         "taskB",
     ],
 )
@@ -189,10 +214,14 @@ for split_idx in range(3):
     q_op3 = []
     q_op4 = []
     q_op5 = []
+    a_op1 = []
+    a_op2 = []
+    a_op3 = []
+    a_op4 = []
+    a_op5 = []
     q_ans = []
     q_ans = []
     taskA_pos = []
-    taskA_neg = []
     taskB = []
 
     for id in ids:
@@ -212,7 +241,21 @@ for split_idx in range(3):
             q_op4.append(data[id]["choices"][3])
             q_op5.append(data[id]["choices"][4])
             taskA_pos.append("\n".join(data[id]["positives"]))
-            taskA_neg.append("\n\n\n".join(data[id]["negatives"]))
+
+            choices = data[id]["choices"][:]
+            answer_index = choices.index(data[id]["answer"])
+            ordered_explanations = []
+            for i in range(5):
+                if i == answer_index:
+                    ordered_explanations.append(i)
+                else:
+                    ordered_explanations.append(choices.pop(0))
+            a_op1.append(ordered_explanations[0])
+            a_op2.append(ordered_explanations[1])
+            a_op3.append(ordered_explanations[2])
+            a_op4.append(ordered_explanations[3])
+            a_op5.append(ordered_explanations[4])
+
             taskB.append(data[id]["freeflow"])
 
     print(total)
@@ -227,7 +270,6 @@ for split_idx in range(3):
         len(q_op5),
         len(q_ans),
         len(taskA_pos),
-        len(taskA_neg),
         len(taskB),
     )
     tmp_data = {
@@ -239,9 +281,13 @@ for split_idx in range(3):
         "q_op3": q_op3,
         "q_op4": q_op4,
         "q_op5": q_op5,
+        "a_op1": a_op1,
+        "a_op2": a_op2,
+        "a_op3": a_op3,
+        "a_op4": a_op4,
+        "a_op5": a_op5,
         "q_ans": q_ans,
         "taskA_pos": taskA_pos,
-        "taskA_neg": taskA_neg,
         "taskB": taskB,
     }
     df = pd.DataFrame(
@@ -255,9 +301,13 @@ for split_idx in range(3):
             "q_op3",
             "q_op4",
             "q_op5",
+            "a_op1",
+            "a_op2",
+            "a_op3",
+            "a_op4",
+            "a_op5",
             "q_ans",
             "taskA_pos",
-            "taskA_neg",
             "taskB",
         ],
     )

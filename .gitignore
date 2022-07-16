@@ -1,0 +1,5 @@
+cqa/
+cqa_data.csv
+cqa_data_test.csv
+cqa_data_train.csv
+cqa_data_val.csv
