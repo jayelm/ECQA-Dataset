@@ -94,7 +94,6 @@ a_op4 = []
 a_op5 = []
 q_ans = []
 q_ans = []
-taskA_pos = []
 taskB = []
 
 for id in data.keys():
@@ -103,6 +102,8 @@ for id in data.keys():
         and ("negatives" in data[id])
         and ("freeflow" in data[id])
     ):
+        if len(data[id]["negatives"]) != 4:
+            continue  # Weird edge case
         total += 1
         q_ids.append(id)
         q_concept.append(data[id]["concept"])
@@ -113,16 +114,17 @@ for id in data.keys():
         q_op3.append(data[id]["choices"][2])
         q_op4.append(data[id]["choices"][3])
         q_op5.append(data[id]["choices"][4])
-        taskA_pos.append("\n".join(data[id]["positives"]))
 
         choices = data[id]["choices"][:]
+        positive_explanation = "\n\n\n".join(data[id]["positives"])
+        negative_explanations = data[id]["negatives"][:]
         answer_index = choices.index(data[id]["answer"])
         ordered_explanations = []
         for i in range(5):
             if i == answer_index:
-                ordered_explanations.append(i)
+                ordered_explanations.append(positive_explanation)
             else:
-                ordered_explanations.append(choices.pop(0))
+                ordered_explanations.append(negative_explanations.pop(0))
         a_op1.append(ordered_explanations[0])
         a_op2.append(ordered_explanations[1])
         a_op3.append(ordered_explanations[2])
@@ -143,7 +145,6 @@ print(
     len(q_op4),
     len(q_op5),
     len(q_ans),
-    len(taskA_pos),
     len(taskB),
 )
 tmp_data = {
@@ -161,7 +162,6 @@ tmp_data = {
     "a_op4": a_op4,
     "a_op5": a_op5,
     "q_ans": q_ans,
-    "taskA_pos": taskA_pos,
     "taskB": taskB,
 }
 df = pd.DataFrame(
@@ -181,7 +181,6 @@ df = pd.DataFrame(
         "a_op4",
         "a_op5",
         "q_ans",
-        "taskA_pos",
         "taskB",
     ],
 )
@@ -221,7 +220,6 @@ for split_idx in range(3):
     a_op5 = []
     q_ans = []
     q_ans = []
-    taskA_pos = []
     taskB = []
 
     for id in ids:
@@ -230,6 +228,8 @@ for split_idx in range(3):
             and ("negatives" in data[id])
             and ("freeflow" in data[id])
         ):
+            if len(data[id]["negatives"]) != 4:
+                continue  # Weird edge case
             total += 1
             q_ids.append(id)
             q_concept.append(data[id]["concept"])
@@ -240,16 +240,17 @@ for split_idx in range(3):
             q_op3.append(data[id]["choices"][2])
             q_op4.append(data[id]["choices"][3])
             q_op5.append(data[id]["choices"][4])
-            taskA_pos.append("\n".join(data[id]["positives"]))
 
             choices = data[id]["choices"][:]
+            positive_explanation = "\n\n\n".join(data[id]["positives"])
+            negative_explanations = data[id]["negatives"][:]
             answer_index = choices.index(data[id]["answer"])
             ordered_explanations = []
             for i in range(5):
                 if i == answer_index:
-                    ordered_explanations.append(i)
+                    ordered_explanations.append(positive_explanation)
                 else:
-                    ordered_explanations.append(choices.pop(0))
+                    ordered_explanations.append(negative_explanations.pop(0))
             a_op1.append(ordered_explanations[0])
             a_op2.append(ordered_explanations[1])
             a_op3.append(ordered_explanations[2])
@@ -269,7 +270,6 @@ for split_idx in range(3):
         len(q_op4),
         len(q_op5),
         len(q_ans),
-        len(taskA_pos),
         len(taskB),
     )
     tmp_data = {
@@ -287,7 +287,6 @@ for split_idx in range(3):
         "a_op4": a_op4,
         "a_op5": a_op5,
         "q_ans": q_ans,
-        "taskA_pos": taskA_pos,
         "taskB": taskB,
     }
     df = pd.DataFrame(
@@ -307,7 +306,6 @@ for split_idx in range(3):
             "a_op4",
             "a_op5",
             "q_ans",
-            "taskA_pos",
             "taskB",
         ],
     )
